@@ -8,7 +8,9 @@
 <meta name="theme-color" content="#EEE8DB">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preload" href="fonts/GeistSerif-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/Geist-Medium.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+@font-face{font-family:"Geist";src:url(fonts/Geist-Medium.woff2) format("woff2");font-weight:500;font-display:swap}
 @font-face{font-family:"Geist Serif";src:url(fonts/GeistSerif-Regular.woff2) format("woff2");font-weight:400;font-display:swap}
 html,body{margin:0;height:100%;background:#EEE8DB;overflow:hidden}
 canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
@@ -74,9 +76,13 @@ function drawContent(t,typed,caretOn){
   ctx.restore();
   ctx.shadowBlur=0;
   ctx.font=fs+'px "Geist Serif", Georgia, serif';ctx.textBaseline="alphabetic";
-  var ny=y0+size+gap+fs,nw=ctx.measureText(NAME).width;
-  ctx.fillStyle="#0A0A0B";ctx.strokeStyle="#0A0A0B";ctx.lineWidth=.55;ctx.lineJoin="round";
-  ctx.fillText(NAME,vw/2-nw/2,ny);ctx.strokeText(NAME,vw/2-nw/2,ny);
+  var ny=y0+size+gap+fs;
+  ctx.font='500 16px "Geist", system-ui, sans-serif';
+  if("letterSpacing" in ctx)ctx.letterSpacing=".02em";
+  var nw=ctx.measureText(NAME).width;
+  ctx.fillStyle="#0A0A0B";ctx.fillText(NAME,vw/2-nw/2,ny);
+  if("letterSpacing" in ctx)ctx.letterSpacing="0px";
+  ctx.font=fs+'px "Geist Serif", Georgia, serif';
   var full=ctx.measureText(TEXT).width,tx=vw/2-full/2,ty=ny+lh;
   ctx.fillStyle="#3A3732";ctx.fillText(typed,tx,ty);
   if(caretOn){var cw=ctx.measureText(typed).width;ctx.fillRect(tx+cw+2,ty-fs*.82,1,fs*1.02);}
@@ -162,7 +168,7 @@ function frame(now){
   requestAnimationFrame(frame);
 }
 var go=function(){requestAnimationFrame(frame);};
-if(document.fonts&&document.fonts.load){document.fonts.load('17px "Geist Serif"').then(go,go);}else go();
+if(document.fonts&&document.fonts.load){Promise.all([document.fonts.load('17px "Geist Serif"'),document.fonts.load('500 16px "Geist"')]).then(go,go);}else go();
 })();
 </script>
 </body>
