@@ -151,8 +151,15 @@ addEventListener("resize",resize);if(window.visualViewport)visualViewport.addEve
 
 /* ---------- input, smoothed slowly ---------- */
 var mT=[.5,.42],mC=[.5,.42],hT=0,hC=0,sT=0,sC=0;
-addEventListener("pointermove",function(e){var r=cv.getBoundingClientRect();mT=[e.clientX/r.width,e.clientY/r.height];hT=1;},{passive:true});
-addEventListener("pointerup",function(e){if(e.pointerType!=="mouse")hT=0;},{passive:true});
+var touching=false,isTouch=false;
+function setM(e,snap){var r=cv.getBoundingClientRect();mT=[e.clientX/r.width,e.clientY/r.height];if(snap){mC=[mT[0],mT[1]];}}
+addEventListener("pointerdown",function(e){if(e.pointerType==="mouse")return;isTouch=true;touching=true;setM(e,true);hT=1;},{passive:true});
+addEventListener("pointermove",function(e){
+  if(e.pointerType==="mouse"){isTouch=false;setM(e,false);hT=1;return;}
+  if(touching){setM(e,false);hT=1;}
+},{passive:true});
+function lift(e){if(e.pointerType!=="mouse"){touching=false;hT=0;}}
+addEventListener("pointerup",lift,{passive:true});addEventListener("pointercancel",lift,{passive:true});
 document.addEventListener("pointerleave",function(){hT=0;});
 addEventListener("blur",function(){hT=0;});
 addEventListener("wheel",function(e){sT+=e.deltaY*.0015;},{passive:true});
@@ -164,7 +171,7 @@ var start=performance.now(),last=start;
 function frame(now){
   var t=(now-start)/1000,dt=Math.min(.05,(now-last)/1000);last=now;
   var a=1-Math.exp(-dt*2.2);
-  mC[0]+=(mT[0]-mC[0])*a;mC[1]+=(mT[1]-mC[1])*a;hC+=(hT-hC)*(1-Math.exp(-dt*1.5));sC+=(sT-sC)*(1-Math.exp(-dt*1.8));
+  mC[0]+=(mT[0]-mC[0])*a;mC[1]+=(mT[1]-mC[1])*a;hC+=(hT-hC)*(1-Math.exp(-dt*(isTouch?(hT>hC?6:5):1.5)));sC+=(sT-sC)*(1-Math.exp(-dt*1.8));
   typeStep(t);
   drawContent(t,typed,reduce||Math.floor(t*2)%2===0||ti<TEXT.length&&dir>0);
   if(ok){
