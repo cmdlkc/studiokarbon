@@ -104,7 +104,7 @@ var FS=[
 " float d=box(p-c,hb,.035);",
 " float ins=1.-smoothstep(-.0015,.0015,d);",
 " float dep=clamp(-d/.14,0.,1.);",
-" float rim=exp(-abs(d)*90.);",
+" float rim=exp(-abs(d)*260.)*(.35+.65*ins);",
 " vec2 m=(M-.5)*asp;float md=length(p-m);",
 " float nr=exp(-md*md/.05)*hv;",
 " float k=.06+.42*nr;",
@@ -119,9 +119,9 @@ var FS=[
 " vec3 col=mix(texture2D(T,v).rgb,bent,ins);",
 " float ph=dot(p-c,vec2(.85,.45))*1.1+M.x*.7+(1.-M.y)*.35+sc*.25+tm*.015+nr*.35;",
 " vec3 f=film(ph);",
-" col*=mix(vec3(1.),f*1.25,ins*.42);",
-" col+=f*ins*(.045+.07*pow(1.-dep,2.)+.08*nr);",
-" col+=f*rim*.45+vec3(rim*.05);",
+" col*=mix(vec3(1.),f*1.2,ins*.24);",
+" col+=f*ins*(.025+.05*pow(1.-dep,3.)+.06*nr);",
+" col+=f*rim*.22+vec3(rim*.06);",
 " vec2 vg=v-.5;col*=1.-dot(vg,vg)*.35;",
 " gl_FragColor=vec4(col,1.);}"
 ].join("\n");
