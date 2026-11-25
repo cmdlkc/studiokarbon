@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Karbon</title>
 <meta name="description" content="Karbon is an architecture and design studio. Site coming soon.">
-<meta name="theme-color" content="#EEE8DB">
+<meta name="theme-color" content="#E2D9C7">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preload" href="fonts/GeistSerif-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 @font-face{font-family:"Geist Serif";src:url(fonts/GeistSerif-Regular.woff2) format("woff2");font-weight:400;font-display:swap}
-html,body{margin:0;height:100%;background:#EEE8DB;overflow:hidden}
-canvas{position:fixed;left:0;top:0;width:100vw;height:100vh;height:100dvh;display:block;touch-action:none}
+html,body{margin:0;height:100%;background:#E2D9C7;overflow:hidden}
+canvas{position:fixed;left:0;top:0;width:100vw;height:100vh;height:100lvh;display:block;touch-action:none}
 #safe{position:fixed;left:0;top:0;width:0;height:0;visibility:hidden;pointer-events:none;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 </style>
@@ -54,14 +54,14 @@ var shapes=PIECES.map(function(p){return{path:new Path2D(p.d),ox:p.ox,oy:p.oy,de
 
 /* ---------- content canvas (what sits behind the glass) ---------- */
 var src=document.createElement("canvas"),ctx=src.getContext("2d");
-var W=0,H=0,DPR=1,INS=[0,0,0,0];
+var W=0,H=0,DPR=1,INS=[0,0,0,0],VIS=0;
 function drawContent(t,typed,caretOn){
   var vw=W/DPR,vh=H/DPR;
   ctx.setTransform(DPR,0,0,DPR,0,0);
   var g=ctx.createRadialGradient(vw/2,vh/2,0,vw/2,vh/2,Math.hypot(vw,vh)/2);
   g.addColorStop(0,"#F4EFE4");g.addColorStop(.45,"#EEE8DB");g.addColorStop(.85,"#E4DCCB");g.addColorStop(1,"#E2D9C7");
   ctx.fillStyle=g;ctx.fillRect(0,0,vw,vh);
-  var top=INS[0]+24,bot=INS[2]+24,availH=Math.max(160,vh-top-bot);
+  var visH=Math.min(vh,VIS||vh),top=INS[0]+24,bot=INS[2]+24,availH=Math.max(160,visH-top-bot);
   var fs=17,lh=fs*1.45,gap=Math.min(36,availH*.05);
   var size=Math.min(300,vw*.62,(availH-gap-lh*2)*.85),s=size/840;
   var total=size+gap+lh*2,x0=vw/2-size/2,y0=top+(availH-total)/2;
@@ -138,6 +138,7 @@ function resize(){
   var r=cv.getBoundingClientRect(),cs=getComputedStyle(safeEl);
   INS=[parseFloat(cs.paddingTop)||0,parseFloat(cs.paddingRight)||0,parseFloat(cs.paddingBottom)||0,parseFloat(cs.paddingLeft)||0];
   W=Math.round(r.width*DPR);H=Math.round(r.height*DPR);
+  VIS=window.visualViewport?visualViewport.height:innerHeight;
   src.width=W;src.height=H;cv.width=W;cv.height=H;
   if(ok)gl.viewport(0,0,W,H);
 }
