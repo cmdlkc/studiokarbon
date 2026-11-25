@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Carbon</title>
-<meta name="description" content="Carbon is an architecture and design studio. Site coming soon.">
+<title>Karbon</title>
+<meta name="description" content="Karbon is an architecture and design studio. Site coming soon.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preload" href="fonts/GeistSerif-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <style>
@@ -21,14 +21,20 @@ svg{width:min(300px,62vw);height:auto;display:block}
 24%{transform:rotate(360deg) scale(1.05);animation-timing-function:cubic-bezier(.4,0,.2,1)}
 32%,100%{transform:rotate(360deg) scale(1)}
 }
+main{display:flex;flex-direction:column;align-items:center;gap:36px}
+.tw{display:grid;min-height:1.4em;font-size:17px;letter-spacing:.02em;color:#3A3732;white-space:pre}
+.tw>span{grid-area:1/1}.ghost{visibility:hidden}.live{text-align:left}
+.caret{display:inline-block;width:1px;height:1.05em;margin-left:2px;vertical-align:-.15em;background:#0A0A0B;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
 footer{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:0 clamp(20px,4vw,48px) clamp(20px,4vh,40px)}
 p{margin:0;font-size:15px;font-weight:400;letter-spacing:.02em;color:#3A3732}
-@media (prefers-reduced-motion:reduce){.pc{animation:none}}
+@media (prefers-reduced-motion:reduce){.pc,.tw>span{grid-area:1/1}.ghost{visibility:hidden}.live{text-align:left}
+.caret{animation:none}}
 </style>
 </head>
 <body>
-<main style="display:contents">
-  <svg viewBox="-60 -60 840 840" role="img" aria-label="Carbon">
+<main>
+  <svg viewBox="-60 -60 840 840" role="img" aria-label="Karbon">
     <defs><filter id="g" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur in="SourceGraphic" stdDeviation="4" result="b1"/><feGaussianBlur in="SourceGraphic" stdDeviation="12" result="b2"/><feComponentTransfer in="b2" result="b2o"><feFuncA type="linear" slope="0.7"/></feComponentTransfer><feComponentTransfer in="b1" result="b1o"><feFuncA type="linear" slope="0.55"/></feComponentTransfer><feMerge><feMergeNode in="b2o"/><feMergeNode in="b1o"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
     <g filter="url(#g)">
       <path class="pc" d="M401.9,205.0 L401.3,205.1 L400.7,205.2 L400.0,205.2 L399.4,205.2 L398.8,205.1 L398.2,204.9 L397.6,204.7 L397.1,204.4 L396.5,204.1 L396.0,203.7 L395.6,203.3 L395.2,202.8 L394.8,202.3 L394.5,201.8 L394.2,201.3 L394.0,200.7 L393.9,200.1 L393.8,199.5 L393.8,198.8 L393.8,130.1 L393.8,129.4 L393.9,128.8 L394.0,128.2 L394.2,127.6 L394.5,127.0 L394.8,126.5 L395.2,126.0 L395.6,125.5 L404.8,116.3 L405.3,115.9 L405.8,115.5 L406.3,115.2 L406.9,114.9 L407.5,114.7 L408.1,114.6 L408.7,114.5 L409.4,114.5 L498.1,114.5 L498.7,114.5 L499.3,114.6 L499.9,114.7 L500.4,114.9 L501.0,115.2 L501.5,115.5 L502.0,115.8 L502.5,116.2 L502.9,116.7 L503.3,117.1 L503.6,117.7 L548.0,194.5 L548.3,195.0 L548.5,195.6 L548.7,196.2 L548.8,196.9 L548.8,197.5 L548.8,198.1 L548.7,198.7 L548.6,199.3 L545.2,211.9 L545.0,212.5 L544.8,213.1 L544.5,213.6 L544.1,214.1 L543.7,214.6 L543.3,215.1 L542.8,215.4 L542.3,215.8 L482.7,250.2 L482.1,250.5 L481.6,250.7 L481.0,250.9 L480.4,251.0 L479.7,251.0 L479.1,251.0 L478.5,251.0 L477.9,250.8 L477.3,250.6 L476.7,250.4 L476.2,250.1 L475.7,249.8 L475.2,249.4 L474.8,248.9 L474.4,248.5 L474.0,247.9 L473.7,247.4 L473.5,246.8 L473.3,246.2 L460.2,195.7 L460.0,195.0 L459.7,194.4 L459.4,193.8 L459.1,193.3 L458.7,192.8 L458.2,192.4 L457.7,192.0 L457.2,191.7 L456.6,191.4 L456.0,191.1 L455.4,191.0 L454.8,190.9 L454.2,190.8 L453.5,190.8 L452.9,190.9 L452.1,191.1 L401.9,205.0Z" style="transform-origin:468.8px 171.6px;animation-delay:0.00s"/>
@@ -39,10 +45,25 @@ p{margin:0;font-size:15px;font-weight:400;letter-spacing:.02em;color:#3A3732}
       <path class="pc" d="M171.4,199.3 L171.3,198.7 L171.2,198.1 L171.2,197.5 L171.2,196.9 L171.3,196.2 L171.5,195.6 L171.7,195.0 L172.0,194.5 L216.4,117.7 L216.7,117.1 L217.1,116.7 L217.5,116.2 L218.0,115.8 L218.5,115.5 L219.0,115.2 L219.6,114.9 L220.1,114.7 L220.7,114.6 L221.3,114.5 L221.9,114.5 L310.6,114.5 L311.3,114.5 L311.9,114.6 L312.5,114.7 L313.1,114.9 L313.7,115.2 L314.2,115.5 L314.7,115.9 L315.2,116.3 L324.4,125.5 L324.8,126.0 L325.2,126.5 L325.5,127.0 L325.8,127.6 L326.0,128.2 L326.1,128.8 L326.2,129.4 L326.2,130.1 L326.2,198.8 L326.2,199.5 L326.1,200.1 L326.0,200.7 L325.8,201.3 L325.5,201.8 L325.2,202.3 L324.8,202.8 L324.4,203.3 L324.0,203.7 L323.5,204.1 L322.9,204.4 L322.4,204.7 L321.8,204.9 L321.2,205.1 L320.6,205.2 L320.0,205.2 L319.3,205.2 L318.7,205.1 L318.1,205.0 L267.9,191.1 L267.1,190.9 L266.5,190.8 L265.8,190.8 L265.2,190.9 L264.6,191.0 L264.0,191.1 L263.4,191.4 L262.8,191.7 L262.3,192.0 L261.8,192.4 L261.3,192.8 L260.9,193.3 L260.6,193.8 L260.3,194.4 L260.0,195.0 L259.8,195.7 L246.7,246.2 L246.5,246.8 L246.3,247.4 L246.0,247.9 L245.6,248.5 L245.2,248.9 L244.8,249.4 L244.3,249.8 L243.8,250.1 L243.3,250.4 L242.7,250.6 L242.1,250.8 L241.5,251.0 L240.9,251.0 L240.3,251.0 L239.6,251.0 L239.0,250.9 L238.4,250.7 L237.9,250.5 L237.3,250.2 L177.7,215.8 L177.2,215.4 L176.7,215.1 L176.3,214.6 L175.9,214.1 L175.5,213.6 L175.2,213.1 L175.0,212.5 L174.8,211.9 L171.4,199.3Z" style="transform-origin:251.2px 171.6px;animation-delay:3.00s"/>
     </g>
   </svg>
+  <p class="tw" aria-label="Coming soon"><span class="ghost" aria-hidden="true">Coming soon</span><span class="live" aria-hidden="true"><span id="tw"></span><span class="caret"></span></span></p>
 </main>
 <footer>
-  <p>Carbon</p>
-  <p>Coming soon</p>
+  <p>Karbon</p>
 </footer>
+<script>
+(function(){
+  var el=document.getElementById('tw'),txt='Coming soon';
+  if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches){el.textContent=txt;return;}
+  var i=0,dir=1;
+  function tick(){
+    i+=dir; el.textContent=txt.slice(0,i);
+    var d;
+    if(dir>0){ d = i===txt.length ? 3200 : 70+Math.random()*90; if(i===txt.length) dir=-1; if(txt[i-1]===' ') d+=120; }
+    else { d = i===0 ? 700 : 35; if(i===0) dir=1; }
+    setTimeout(tick,d);
+  }
+  setTimeout(tick,600);
+})();
+</script>
 </body>
 </html>
