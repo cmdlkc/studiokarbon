@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Karbon</title>
 <meta name="description" content="Karbon is an architecture and design studio. Site coming soon.">
-<meta name="theme-color" content="#050506">
+<meta name="theme-color" content="#F2EDE2">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preload" href="fonts/GeistSerif-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 @font-face{font-family:"Geist Serif";src:url(fonts/GeistSerif-Regular.woff2) format("woff2");font-weight:400;font-display:swap}
-html,body{margin:0;height:100%;background:#050506;overflow:hidden}
+html,body{margin:0;height:100%;background:#F2EDE2;overflow:hidden}
 canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 </style>
@@ -57,12 +57,12 @@ function drawContent(t,typed,caretOn){
   var vw=W/DPR,vh=H/DPR;
   ctx.setTransform(DPR,0,0,DPR,0,0);
   var g=ctx.createRadialGradient(vw/2,vh/2,0,vw/2,vh/2,Math.hypot(vw,vh)*.6);
-  g.addColorStop(0,"#16171A");g.addColorStop(.5,"#0A0A0C");g.addColorStop(1,"#030304");
+  g.addColorStop(0,"#F7F3EA");g.addColorStop(.5,"#F2EDE2");g.addColorStop(1,"#E8E1D2");
   ctx.fillStyle=g;ctx.fillRect(0,0,vw,vh);
   var size=Math.min(300,vw*.62),s=size/840,gap=36,fs=17;
   var total=size+gap+fs*1.4,x0=vw/2-size/2,y0=vh/2-total/2;
   ctx.save();ctx.translate(x0+60*s,y0+60*s);ctx.scale(s,s);
-  ctx.fillStyle="#EDE8DD";ctx.shadowColor="rgba(237,232,221,.45)";
+  ctx.fillStyle="#0A0A0B";ctx.shadowColor="rgba(10,10,11,.42)";
   for(var pass=0;pass<2;pass++){
     ctx.shadowBlur=(pass?10:34)*s*DPR*2.2;
     for(var i=0;i<shapes.length;i++){
@@ -75,7 +75,7 @@ function drawContent(t,typed,caretOn){
   ctx.shadowBlur=0;
   ctx.font=fs+'px "Geist Serif", Georgia, serif';ctx.textBaseline="alphabetic";
   var full=ctx.measureText(TEXT).width,tx=vw/2-full/2,ty=y0+size+gap+fs;
-  ctx.fillStyle="#D9D3C7";ctx.fillText(typed,tx,ty);
+  ctx.fillStyle="#3A3732";ctx.fillText(typed,tx,ty);
   if(caretOn){var cw=ctx.measureText(typed).width;ctx.fillRect(tx+cw+2,ty-fs*.82,1,fs*1.02);}
 }
 
@@ -99,30 +99,23 @@ var FS=[
 " vec3 w=.5+.5*cos(6.2832*(fract(ph)-vec3(0.,.3333,.6667)));w=w*w;return(cy*w.x+mg*w.y+am*w.z)/(w.x+w.y+w.z);}",
 "void main(){",
 " vec2 asp=vec2(R.x/R.y,1.);vec2 p=(v-.5)*asp;",
-" vec2 c=vec2(sin(tm*.07)*.025,cos(tm*.05)*.018);",
-" vec2 hb=vec2(min(asp.x*.40,.62),.34);",
-" float d=box(p-c,hb,.035);",
-" float ins=1.-smoothstep(-.0015,.0015,d);",
-" float dep=clamp(-d/.14,0.,1.);",
-" float rim=exp(-abs(d)*260.)*(.35+.65*ins);",
+" vec2 c=vec2(sin(tm*.07)*.02,cos(tm*.05)*.015);",
+" float e=clamp(length((v-.5)*2.),0.,1.42);",
 " vec2 m=(M-.5)*asp;float md=length(p-m);",
 " float nr=exp(-md*md/.05)*hv;",
-" float k=.06+.42*nr;",
+" float k=.05+.40*nr;",
 " vec2 q=p;",
-" q.x=c.x+(p.x-c.x)/(1.+k*ins);",
-" q.x+=ins*(nr*.02)*sin(p.y*9.+tm*.35);",
-" q.y+=ins*.003*sin(p.x*6.+tm*.4);",
-" q-=ins*pow(1.-dep,2.)*.03*sign(p-c)*vec2(1.,.35);",
+" q.x=c.x+(p.x-c.x)/(1.+k);",
+" q.x+=nr*.018*sin(p.y*9.+tm*.35);",
+" q.y+=.0025*sin(p.x*6.+tm*.4);",
+" q-=pow(e,3.)*.018*(p-c);",
 " vec2 su=q/asp+.5;",
-" float ca=ins*(pow(1.-dep,1.5)*.012+nr*.010);",
-" vec3 bent=vec3(texture2D(T,su+vec2(ca,0.)).r,texture2D(T,su).g,texture2D(T,su-vec2(ca,0.)).b);",
-" vec3 col=mix(texture2D(T,v).rgb,bent,ins);",
+" float ca=.007*pow(e,2.)+nr*.009;",
+" vec3 col=vec3(texture2D(T,su+vec2(ca,0.)).r,texture2D(T,su).g,texture2D(T,su-vec2(ca,0.)).b);",
 " float ph=dot(p-c,vec2(.85,.45))*1.1+M.x*.7+(1.-M.y)*.35+sc*.25+tm*.015+nr*.35;",
 " vec3 f=film(ph);",
-" col*=mix(vec3(1.),f*1.2,ins*.24);",
-" col+=f*ins*(.025+.05*pow(1.-dep,3.)+.06*nr);",
-" col+=f*rim*.22+vec3(rim*.06);",
-" vec2 vg=v-.5;col*=1.-dot(vg,vg)*.35;",
+" col*=mix(vec3(1.),f,.10+.06*pow(e,2.)+.10*nr);",
+" vec2 vg=v-.5;col*=1.-dot(vg,vg)*.12;",
 " gl_FragColor=vec4(col,1.);}"
 ].join("\n");
 var prog,loc={},tex,ok=!!gl;
