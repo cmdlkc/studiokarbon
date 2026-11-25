@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Karbon</title>
 <meta name="description" content="Karbon is an architecture and design studio. Site coming soon.">
-<meta name="theme-color" content="#E2D9C7">
+<meta name="theme-color" content="#EAE3D4">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preload" href="fonts/GeistSerif-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 @font-face{font-family:"Geist Serif";src:url(fonts/GeistSerif-Regular.woff2) format("woff2");font-weight:400;font-display:swap}
-html,body{margin:0;height:100%;background:#E2D9C7;overflow:hidden}
+html,body{margin:0;height:100%;background:#EAE3D4;overflow:hidden}
 canvas{position:fixed;left:0;top:0;width:100vw;height:100vh;height:100lvh;display:block;touch-action:none}
 #safe{position:fixed;left:0;top:0;width:0;height:0;visibility:hidden;pointer-events:none;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -58,10 +58,10 @@ var W=0,H=0,DPR=1,INS=[0,0,0,0],VIS=0;
 function drawContent(t,typed,caretOn){
   var vw=W/DPR,vh=H/DPR;
   ctx.setTransform(DPR,0,0,DPR,0,0);
-  ctx.fillStyle="#E2D9C7";ctx.fillRect(0,0,vw,vh);
+  ctx.fillStyle="#EAE3D4";ctx.fillRect(0,0,vw,vh);
   ctx.save();ctx.translate(vw/2,vh/2);ctx.scale(vw/vh,1);
   var g=ctx.createRadialGradient(0,0,0,0,0,vh/2);
-  g.addColorStop(0,"#F4EFE4");g.addColorStop(.45,"#EEE8DB");g.addColorStop(.85,"#E5DDCD");g.addColorStop(1,"#E2D9C7");
+  g.addColorStop(0,"#F7F3EA");g.addColorStop(.45,"#F3EEE3");g.addColorStop(.85,"#EDE6D8");g.addColorStop(1,"#EAE3D4");
   ctx.fillStyle=g;ctx.fillRect(-vh/2,-vh/2,vh,vh);ctx.restore();
   var visH=Math.min(vh,VIS||vh),top=INS[0]+24,bot=INS[2]+24,availH=Math.max(160,visH-top-bot);
   var fs=17,lh=fs*1.45,gap=Math.min(36,availH*.05);
